@@ -1,0 +1,17 @@
+<!doctype html><html><head><title>Movie Form 1</title></head><body>
+    <h1>Edit movie</h1>
+    <!-- method="POST"：表单字段（title、price）通过 POST 请求体提交，不会出现在 URL 中
+         action 里的 ?id=1022 属于 URL 查询字符串，会以 GET 方式传给处理脚本
+         因此处理脚本可以同时用 INPUT_POST 和 INPUT_GET 读取数据（混合请求） -->
+    <form method="POST" action="/week04/01_mixed_request_process.php?id=1022">
+        <!-- label 的 for 与 input 的 id 对应：点击文字即可聚焦到输入框（可访问性） -->
+        <label for="title">Title: </label><input name="title" id="title">
+        <br>
+        <label for="price">Price: </label><input name="price" id="price">
+        <br>
+        <!-- 提交按钮：默认 type="submit"，点击后把表单发往 action 指定的地址 -->
+        <input type="submit">
+    </form>
+    </body>
+</html>
+    

@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+    <title>Movie Rent Form 1</title>
+    <!-- 由 CDN 載入 Bootstrap 5，只是為了套用現成樣式（btn、container 等 class） -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+</head>
+<body class="container">   <!-- Bootstrap class：讓內容置中並有左右留白 -->
+<h1>Rent movie</h1>
+
+<!--
+  重點：同一個表單有多個送出按鈕（multiple submit buttons）
+  - method="POST"           → 信用卡資料放 $_POST，避免出現在網址列
+  - action 的 ?movieId=80441 → 這筆資料放 $_GET，用來指名要租哪部電影
+  只有「被按下」的那顆 submit 按鈕的 name/value 會被送出，
+  伺服器端即可用 isset($_POST['watchNow']) / isset($_POST['watchLater']) 判斷使用者選了哪個動作。
+-->
+<form method="POST" action="02_multiple_process.php?movieId=80441">
+
+    <p><label for="number">Credit card number:</label>
+        <input name="number" id="number"></p>   <!-- $_POST['number'] -->
+
+    <p><label for="date">Expiry date:</label>
+        <input name="date" id="date"></p>       <!-- $_POST['date'] -->
+
+    <p><label for="ccv">CCV code:</label>
+        <input name="ccv" id="ccv"></p>         <!-- $_POST['ccv'] -->
+
+    <p>
+        <!-- 兩顆 submit 有不同的 name 與 value：
+             按下後送出的內容是 watchNow=Pay and start watching now
+             value 同時也是按鈕上顯示的文字 -->
+        <input type="submit" name="watchNow"
+               value="Pay and start watching now" class="btn btn-success">
+
+        <!-- 另一顆：isset($_POST['watchLater']) 為 true 時代表選了「稍後再看」 -->
+        <input type="submit" name="watchLater"
+               value="Pay and watch later" class="btn btn-success">
+    </p>
+</form>
+</body>
+</html>

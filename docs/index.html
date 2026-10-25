@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CSIS 3280 · Week 04 — PHP Form Handling</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="gate-body">
+    <div class="gate-wrap">
+        <div class="gate-card">
+            <p class="gate-kicker">CSIS 3280 · Backend Web Development</p>
+            <h1 class="gate-title">Week 04 — PHP Form Handling</h1>
+            <p class="gate-sub">
+                Demo walkthrough · source-code manual · fill-in-the-blank lab
+            </p>
+
+            <div class="gate-options">
+                <a class="gate-option" href="app.html?lang=en" data-lang="en">
+                    <span class="gate-flag">EN</span>
+                    <span class="gate-opt-title">English</span>
+                    <span class="gate-opt-desc">Open the English courseware</span>
+                </a>
+                <a class="gate-option" href="app.html?lang=zh" data-lang="zh">
+                    <span class="gate-flag">中文</span>
+                    <span class="gate-opt-title">中文版</span>
+                    <span class="gate-opt-desc">打开中文教材</span>
+                </a>
+            </div>
+
+            <p class="gate-note">Your choice is remembered on this device · 选择会被本机记住</p>
+        </div>
+    </div>
+
+<script>
+(function () {
+    var saved = localStorage.getItem('w04_lang');
+    if (saved === 'en' || saved === 'zh') {
+        location.replace('app.html?lang=' + saved);
+        return;
+    }
+    var nav = (navigator.language || '').toLowerCase();
+    var suggested = nav.indexOf('zh') === 0 ? 'zh' : 'en';
+    var el = document.querySelector('.gate-option[data-lang="' + suggested + '"]');
+    if (el) { el.classList.add('is-suggested'); }
+
+    document.querySelectorAll('.gate-option').forEach(function (a) {
+        a.addEventListener('click', function () {
+            localStorage.setItem('w04_lang', a.dataset.lang);
+        });
+    });
+})();
+</script>
+</body>
+</html>

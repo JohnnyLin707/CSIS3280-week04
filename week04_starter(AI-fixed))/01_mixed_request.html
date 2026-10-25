@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head><title>Movie Form 1</title></head>
+<body>
+<h1>Edit movie</h1>
+
+<!--
+  重點：同時使用 GET 與 POST（稱為「混合請求」）
+  - method="POST"  → 表單欄位（title、price）會送到 $_POST
+  - action 網址後面的 ?id=1022 → 這個查詢字串（query string）會送到 $_GET
+  所以在處理程式 01_mixed_request_process.php 中可以同時讀到：
+      $_GET['id']      // 1022，通常用來辨識「要修改哪一筆資料」
+      $_POST['title']  // 使用者輸入的新標題
+      $_POST['price']  // 使用者輸入的新價格
+  實務用法：用 GET 帶「資源識別碼」，用 POST 帶「要寫入的資料」
+-->
+<form method="POST" action="/01_mixed_request_process.php?id=1022">
+
+    <!-- label 的 for 要對應 input 的 id：點擊文字時會聚焦該輸入框 -->
+    <label for="title">Title: </label>
+    <input name="title" id="title">   <!-- name 決定 $_POST 的鍵名：$_POST['title'] -->
+    <br>
+    <label for="price">Price: </label>
+    <input name="price" id="price">   <!-- $_POST['price'] -->
+    <br>
+
+    <!-- 沒有 name 的 submit：只負責送表單，在 $_POST 裡不會產生資料 -->
+    <input type="submit">
+</form>
+</body>
+</html>

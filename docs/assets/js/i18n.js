@@ -1,0 +1,322 @@
+/* ============================================================
+   UI strings (interface chrome only — teaching content lives in
+   data-guide.js / data-manual.js / data-exercises.js)
+   ============================================================ */
+
+window.I18N = {
+    en: {
+        brandSub: 'Week 04 · PHP Forms',
+        footer: 'CSIS 3280 · Backend Web Development · Week 04 — PHP form processing',
+        nav: {
+            home: 'Overview',
+            guide: 'Demo Guide',
+            manual: 'Manual',
+            exercises: 'Exercises',
+            cheatsheet: 'Cheatsheet'
+        },
+
+        home: {
+            heroTitle: 'Week 04 — How PHP reads a form',
+            heroSub: 'Six minimal demos, a line-by-line walkthrough of every source file, and a fill-in-the-blank lab. Everything runs in the browser — no server needed to read it.',
+            pills: ['6 demos', '13 source files', '14 exercises', 'EN / 中文'],
+            sectionsTitle: 'Where do you want to start?',
+            sectionsSub: 'Pick a section; your progress is saved in this browser.',
+            tiles: [
+                {
+                    kicker: 'Section 1',
+                    title: 'Demo Guide',
+                    desc: 'What each demo does, how to run it and what you should see.',
+                    foot: '6 walkthroughs'
+                },
+                {
+                    kicker: 'Section 2',
+                    title: 'Source-code Manual',
+                    desc: 'Every source file split into steps: original code, why it is written, what it is for.',
+                    foot: '13 files · 67 steps'
+                },
+                {
+                    kicker: 'Section 3',
+                    title: 'Fill-in-the-blank Lab',
+                    desc: 'Key lines removed from real code. Type them in and check the answer instantly.',
+                    foot: '14 exercises · 19 blanks'
+                },
+                {
+                    kicker: 'Section 4',
+                    title: 'Function Cheatsheet',
+                    desc: 'Every PHP function used this week, on one page.',
+                    foot: '12 entries'
+                }
+            ],
+            setupTitle: 'Environment setup (one time only)',
+            setupIntro: 'These pages must be opened through a web server. If you double-click them (<code>file://</code>) PHP never runs. The demos use the absolute path <code>/week04/xxx.php</code>, so the site root must contain a folder named <code>week04</code> — a symbolic link is the easiest way.',
+            setupAfter: 'Then open <code>http://localhost:8000/week04/</code>. Stop the server with <code>Ctrl + C</code> in the terminal.',
+            setupAlt: 'Prefer not to use a symlink? Copy or rename the folder to <code>week04</code> inside your site root. Alternatively change every <code>/week04/...</code> to a relative path — but note that <code>inc/</code> is loaded with a relative <code>require_once</code>, so the working directory must be correct.',
+            filesTitle: 'File inventory',
+            filesSub: 'The 13 source files shipped with this week, and how each one is reached.',
+            colFile: 'File',
+            colType: 'Type',
+            colDesc: 'Purpose'
+        },
+
+        guide: {
+            title: 'Demo Guide',
+            sub: 'Each demo teaches exactly one idea. Read them in order 01 → 06.',
+            filesLabel: 'Files',
+            howToRun: 'How to run',
+            whatYouSee: 'What you see',
+            points: 'What to learn',
+            comparisonTitle: '06 — the same feature, two ways of writing it',
+            comparisonSub: 'The two files behave identically; read them side by side.',
+            compCol: 'Aspect',
+            compColA: 'Single-file version',
+            compColB: 'Controller version',
+            runBoth: 'Both files behave the same:',
+            tableOp: 'Action',
+            tableResult: 'What happens',
+            notice: 'Note: '
+        },
+
+        manual: {
+            title: 'Source-code Manual',
+            sub: 'Every source file of week04_demo(done), split into steps. Concatenate the steps of a chapter and you have the complete original file — type it out to rebuild the whole project.',
+            progressTitle: 'Overall typing progress',
+            progressHint: 'Progress is stored in this browser (localStorage). Refreshing keeps it; a different browser resets it.',
+            fileCount: 'files',
+            stepCount: 'steps',
+            typedCount: 'typed',
+            chapterWord: 'Chapter',
+            chapterLabel: 'Chapter {n}',
+            stepWord: 'Step',
+            codeCaption: 'Original code — step {n}',
+            fileLabel: 'Source file',
+            goal: 'What it solves',
+            run: 'How to run',
+            notice: 'Note: ',
+            termsTitle: 'Name reference',
+            termsSub: 'Every variable, function, attribute and keyword that appears in this chapter.',
+            allChapters: 'All chapters',
+            hideComments: 'Hide comments (pure-code mode)',
+            copyAll: 'Copy all code in this chapter',
+            copyDone: 'Copied ✓',
+            handTyped: 'typed',
+            clear: 'Clear',
+            originalCode: 'Original code',
+            why: 'Why this step exists',
+            purpose: 'What it is for',
+            prev: '← Previous',
+            next: 'Next →',
+            backToIndex: '← Manual index',
+            notStarted: 'Not started',
+            doneAll: '✓ complete',
+            partial: 'typed'
+        },
+
+        ex: {
+            title: 'Fill-in-the-blank Lab',
+            sub: 'Key parts of real code have been removed. Fill them in and check the answer — then read why each blank matters.',
+            progressTitle: 'Overall progress',
+            practiced: 'practised',
+            correctOf: 'correct',
+            notStarted: 'Not started',
+            mastered: 'Mastered',
+            level: 'Level',
+            source: 'From',
+            blanks: 'blanks',
+            promptLabel: 'Task',
+            hints: 'Hints',
+            exerciseLabel: 'Exercise {n}',
+            blankLabel: 'Blank {n}',
+            hintLabel: 'Hint for blank {n}',
+            check: 'Check answers',
+            reveal: 'Show answers',
+            retry: 'Reset',
+            resultOk: 'All correct!',
+            resultBad: 'correct — read the explanations and try again.',
+            revealNote: 'Standard answers are shown; this attempt is not counted towards progress. Try it yourself first.',
+            yourAnswer: 'Your answer',
+            correctAnswer: 'Correct answer',
+            emptyAnswer: '(empty)',
+            correct: 'correct',
+            incorrect: 'incorrect',
+            keynote: 'Key point: ',
+            explanations: 'Explanation, blank by blank',
+            backToList: '← Back to list',
+            prev: '← Previous',
+            next: 'Next →',
+            resetProgress: 'Reset progress',
+            resetConfirm: 'Clear all exercise progress?',
+            listNote: 'Progress is kept only when you press “Check answers”, and only improves — a worse run never overwrites a better one.',
+            levelBasic: 'Basic',
+            levelAdvanced: 'Advanced',
+            levelChallenge: 'Challenge'
+        },
+
+        cheat: {
+            title: 'Function Cheatsheet',
+            sub: 'Every PHP function and syntax used in this week’s demos.',
+            colFn: 'Function / syntax',
+            colMeaning: 'What it means'
+        },
+
+        notFound: 'Page not found — back to the overview.',
+        langName: 'English'
+    },
+
+    zh: {
+        brandSub: '第 4 周 · PHP 表单',
+        footer: 'CSIS 3280 · 后端 Web 开发 · 第 4 周 PHP 表单处理',
+        nav: {
+            home: '概览',
+            guide: '示例演示',
+            manual: '原文说明书',
+            exercises: '填空练习',
+            cheatsheet: '函数速查'
+        },
+
+        home: {
+            heroTitle: '第 4 周 — PHP 如何读取表单',
+            heroSub: '六个最小可运行示例、全部源文件的逐步讲解，以及编程填空练习室。阅读本教材不需要服务器，全部在浏览器里完成。',
+            pills: ['6 个示例', '13 个源文件', '14 道填空题', '中 / 英双语'],
+            sectionsTitle: '从哪里开始？',
+            sectionsSub: '任选一个板块进入；练习进度保存在本机浏览器里。',
+            tiles: [
+                {
+                    kicker: '板块一',
+                    title: '示例演示',
+                    desc: '每个示例做什么、怎么运行、应该看到什么。',
+                    foot: '6 个演示'
+                },
+                {
+                    kicker: '板块二',
+                    title: '原文说明书',
+                    desc: '每个源文件按步骤拆开：原文代码 + 为什么这样写 + 这一步的用意。',
+                    foot: '13 个文件 · 67 步'
+                },
+                {
+                    kicker: '板块三',
+                    title: '编程填空练习室',
+                    desc: '挖掉真实代码的关键处，填写后即时校对，并逐空讲解。',
+                    foot: '14 道题 · 19 个空'
+                },
+                {
+                    kicker: '板块四',
+                    title: '函数速查表',
+                    desc: '本周用到的 PHP 函数与写法，一页看完。',
+                    foot: '12 条'
+                }
+            ],
+            setupTitle: '环境准备（一次性）',
+            setupIntro: '这些页面必须<strong>通过 Web 服务器访问</strong>，直接双击用 <code>file://</code> 打开时 PHP 不会执行。示例里表单的 <code>action</code> 写的是绝对路径 <code>/week04/xxx.php</code>，所以站点根目录下要有一个名为 <code>week04</code> 的目录，用软链接映射最省事。',
+            setupAfter: '之后访问 <code>http://localhost:8000/week04/</code>。停止服务器：在终端按 <code>Ctrl + C</code>。',
+            setupAlt: '不想用软链接也可以：把文件夹复制 / 重命名为 <code>week04</code> 放在站点根目录下。另一种改法是把各文件里的 <code>/week04/...</code> 改成相对路径 —— 但要注意 <code>inc/</code> 用的是相对路径 <code>require_once</code>，工作目录必须正确。',
+            filesTitle: '文件清单',
+            filesSub: '本周附带的 13 个源文件，以及各自的访问方式。',
+            colFile: '文件',
+            colType: '类型',
+            colDesc: '作用'
+        },
+
+        guide: {
+            title: '示例演示',
+            sub: '每个示例只讲一个知识点，建议按 01 → 06 的顺序阅读。',
+            filesLabel: '相关文件',
+            howToRun: '怎么运行',
+            whatYouSee: '看到什么',
+            points: '演示目的',
+            comparisonTitle: '06 — 同一个功能的两种写法',
+            comparisonSub: '两个文件功能完全一样，请对照着看。',
+            compCol: '对比项',
+            compColA: '单文件版',
+            compColB: '控制器版',
+            runBoth: '两者表现一致：',
+            tableOp: '操作',
+            tableResult: '显示效果',
+            notice: '注意：'
+        },
+
+        manual: {
+            title: '原文说明书',
+            sub: '把 week04_demo(done) 的每个源文件按步骤拆开。把一章里所有步骤的代码按顺序拼起来，就是该文件的完整原文，可以照着从头手打一遍。',
+            progressTitle: '手打总进度',
+            progressHint: '进度保存在浏览器本地（localStorage），刷新不丢；换浏览器或清缓存会重置。',
+            fileCount: '个文件',
+            stepCount: '个步骤',
+            typedCount: '已手打',
+            chapterWord: '第',
+            chapterLabel: '第 {n} 章',
+            stepWord: '第',
+            codeCaption: '原文代码 — 第 {n} 步',
+            fileLabel: '原文文件',
+            goal: '要解决什么',
+            run: '怎么运行',
+            notice: '注意：',
+            termsTitle: '变量与名称速查',
+            termsSub: '本章出现的变量、函数、属性、关键字，逐个说明含义。',
+            allChapters: '全部章节',
+            hideComments: '隐藏注释（纯代码手打模式）',
+            copyAll: '复制本章全部代码',
+            copyDone: '已复制 ✓',
+            handTyped: '步已手打',
+            clear: '清除',
+            originalCode: '原文代码',
+            why: '为什么要写这一步',
+            purpose: '这一步的用意',
+            prev: '← 上一章',
+            next: '下一章 →',
+            backToIndex: '← 说明书目录',
+            notStarted: '未开始',
+            doneAll: '✓ 已完成',
+            partial: '已手打'
+        },
+
+        ex: {
+            title: '编程填空练习室',
+            sub: '教材真实代码中挖掉关键处，填写后即时校对，并逐空讲解为什么。',
+            progressTitle: '总进度',
+            practiced: '已练习',
+            correctOf: '答对',
+            notStarted: '未练习',
+            mastered: '已掌握',
+            level: '难度',
+            source: '出处',
+            blanks: '个空',
+            promptLabel: '题目要求',
+            hints: '提示',
+            exerciseLabel: '第 {n} 题',
+            blankLabel: '第 {n} 空',
+            hintLabel: '第 {n} 空的提示',
+            check: '校对答案',
+            reveal: '显示答案',
+            retry: '重新填写',
+            resultOk: '全部正确！',
+            resultBad: '个空，再看讲解改一改。',
+            revealNote: '已显示标准答案，本次不计入进度。建议先自己做一遍再来对照。',
+            yourAnswer: '你的答案',
+            correctAnswer: '正确答案',
+            emptyAnswer: '（空）',
+            correct: '正确',
+            incorrect: '不正确',
+            keynote: '要点：',
+            explanations: '逐空讲解',
+            backToList: '← 返回列表',
+            prev: '← 上一题',
+            next: '下一题 →',
+            resetProgress: '重置进度',
+            resetConfirm: '确定清空所有练习进度？',
+            listNote: '只有点「校对答案」才记录进度，且只在成绩更好时覆盖 —— 手滑变差不会影响已有成绩。',
+            levelBasic: '基础',
+            levelAdvanced: '进阶',
+            levelChallenge: '挑战'
+        },
+
+        cheat: {
+            title: '函数速查表',
+            sub: '本周示例里用到的全部 PHP 函数与写法。',
+            colFn: '函数 / 写法',
+            colMeaning: '含义'
+        },
+
+        notFound: '页面不存在 — 返回概览页。',
+        langName: '中文'
+    }
+};

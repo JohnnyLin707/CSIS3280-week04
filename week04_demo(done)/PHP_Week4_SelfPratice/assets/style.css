@@ -1,0 +1,192 @@
+/* PHP 填空练习室 - 自定义样式 */
+
+.code-block {
+    background: #1e1e2e;
+    color: #e6e6e6;
+    border-radius: .6rem;
+    padding: 1.25rem 1.25rem 1.25rem 1.25rem;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: .95rem;
+    line-height: 2.1;
+    overflow-x: auto;
+    white-space: pre;
+}
+
+.code-comment {
+    color: #7c9c6f;
+}
+
+.code-input {
+    display: inline-block;
+    background: #2a2a3d;
+    border: 1px solid #7c6fcd;
+    border-radius: .3rem;
+    color: #ffe08a;
+    font-family: inherit;
+    font-size: .95rem;
+    padding: .1rem .4rem;
+    text-align: center;
+    transition: all .15s;
+}
+
+.code-input:focus {
+    outline: none;
+    border-color: #ffd166;
+    box-shadow: 0 0 0 2px rgba(255, 209, 102, .25);
+}
+
+.code-input.is-correct {
+    border-color: #3ddc84;
+    color: #b7f7cf;
+    background: #22402f;
+}
+
+.code-input.is-wrong {
+    border-color: #ff6b6b;
+    color: #ffc9c9;
+    background: #46232a;
+    text-decoration: underline wavy #ff6b6b;
+}
+
+.exercise-card {
+    border: 1px solid #dee2e6;
+    border-radius: .75rem;
+    background: #fff;
+    transition: transform .12s, box-shadow .12s;
+}
+
+.exercise-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+}
+
+.badge-level-基础 { background: #198754; }
+.badge-level-进阶 { background: #fd7e14; }
+.badge-level-挑战 { background: #dc3545; }
+
+/* ===== 编程说明书 ===== */
+
+/* 左侧「变量与名称含义」显示区：滚动时固定在视口内 */
+.term-panel {
+    position: sticky;
+    top: 1rem;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: .75rem;
+    padding: 1rem 1rem .5rem;
+}
+
+.term-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: .25rem;
+}
+
+.term-sub {
+    font-size: .8rem;
+    color: #6c757d;
+    margin-bottom: .75rem;
+}
+
+.term-item {
+    border-top: 1px dashed #e5e7eb;
+    padding: .6rem 0;
+}
+
+.term-item:first-child {
+    border-top: 0;
+}
+
+.term-name {
+    font-family: "SFMono-Regular", Consolas, Menlo, monospace;
+    font-size: .85rem;
+    font-weight: 700;
+    color: #7c6fcd;
+    word-break: break-all;
+}
+
+.badge-kind {
+    background: #e9ecef;
+    color: #495057;
+    font-weight: 500;
+    font-size: .7rem;
+}
+
+.term-desc {
+    font-size: .85rem;
+    color: #495057;
+    margin-top: .35rem;
+    line-height: 1.6;
+}
+
+.chapter-list {
+    padding-left: 1.1rem;
+    font-size: .85rem;
+    line-height: 1.9;
+}
+
+.chapter-list a {
+    color: #495057;
+    text-decoration: none;
+}
+
+.chapter-list a:hover {
+    color: #7c6fcd;
+}
+
+.step-card .card-header {
+    border-bottom: 1px solid #f1f3f5;
+}
+
+.code-caption {
+    font-size: .78rem;
+    color: #6c757d;
+    margin-bottom: .35rem;
+}
+
+/* 纯代码手打模式：隐藏所有注释行 */
+.manual-code.hide-comments .code-comment {
+    display: none;
+}
+
+.explain-box {
+    background: #f8f9fa;
+    border-radius: .5rem;
+    padding: .75rem .9rem;
+    height: 100%;
+}
+
+.explain-why {
+    border-left: 4px solid #0d6efd;
+}
+
+.explain-purpose {
+    border-left: 4px solid #198754;
+}
+
+.explain-label {
+    font-size: .78rem;
+    font-weight: 700;
+    color: #343a40;
+    margin-bottom: .35rem;
+}
+
+.explain-box p {
+    font-size: .9rem;
+    line-height: 1.7;
+    color: #495057;
+}
+
+.hand-progress {
+    width: 8rem;
+    height: .6rem;
+}
+
+@media (max-width: 991.98px) {
+    .term-panel {
+        position: static;
+        max-height: none;
+    }
+}

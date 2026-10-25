@@ -1,0 +1,30 @@
+<!doctype html><html><head><title>Movie Rent Form 1</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    >
+</head>
+<body class="container">
+<h1>Rent movie</h1>
+<!-- 表单以 POST 提交，movieId 通过 URL 查询字符串传递 -->
+<form method="POST" action="/week04/02_multiple_process.php?movieId=80441">
+    <p><label for="number">Credit card number:</label>
+        <input name="number" id="number"></p>
+    <p><label for="date">
+            Expiry date:</label>
+        <input name="date" id="date"></p>
+    <p><label for="ccv">
+            CCV code:</label>
+        <input name="ccv" id="ccv"></p>
+    <p>
+        <!-- 多个提交按钮的关键：只有"被点击的那个"按钮的 name/value 会被提交，
+             其它按钮不会提交。因此服务端只要判断哪个 name 存在，
+             就知道用户点了哪个按钮。value 是按钮上显示的文字，也会一并提交。 -->
+        <input type="submit" name="watchNow"
+               value="Pay and start watching now" class="btn btn-success">
+        <input type="submit" name="watchLater"
+               value="Pay and watch later" class="btn btn-success">
+        <!-- class="btn btn-success" 是 Bootstrap 的按钮样式（绿色） -->
+    </p>
+</form>
+</body>
+</html>
