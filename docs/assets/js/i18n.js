@@ -9,9 +9,10 @@ window.I18N = {
         footer: 'CSIS 3280 · Backend Web Development · Week 04 — PHP form processing',
         nav: {
             home: 'Overview',
+            lab: 'Code Lab',
             guide: 'Demo Guide',
             manual: 'Manual',
-            exercises: 'Exercises',
+            exercises: 'Drills',
             cheatsheet: 'Cheatsheet'
         },
 
@@ -19,9 +20,18 @@ window.I18N = {
             heroTitle: 'Week 04 — How PHP reads a form',
             heroSub: 'Six minimal demos, a line-by-line walkthrough of every source file, and a fill-in-the-blank lab. Everything runs in the browser — no server needed to read it.',
             pills: ['6 demos', '13 source files', '14 exercises', 'EN / 中文'],
+            ctaTitle: 'Start by completing the code',
+            ctaText: 'Students learn fastest by filling in the missing lines themselves. The lab hands you the starter file, checks every blank, then shows the finished version to compare against.',
+            ctaBtn: 'Open the Code Lab →',
             sectionsTitle: 'Where do you want to start?',
             sectionsSub: 'Pick a section; your progress is saved in this browser.',
             tiles: [
+                {
+                    kicker: 'Start here',
+                    title: 'Code Completion Lab',
+                    desc: 'The seven places week04_starter leaves unfinished. Fill them in and check.',
+                    foot: '7 tasks · 18 blanks'
+                },
                 {
                     kicker: 'Section 1',
                     title: 'Demo Guide',
@@ -74,6 +84,45 @@ window.I18N = {
             tableOp: 'Action',
             tableResult: 'What happens',
             notice: 'Note: '
+        },
+
+        lab: {
+            title: 'Code Completion Lab',
+            sub: 'Seven tasks taken straight from week04_starter. Fill in the missing code, check it, then compare your work with the finished file in week04_demo(done).',
+            progressTitle: 'Overall progress',
+            practiced: 'tasks attempted',
+            correctOf: 'blanks correct',
+            notStarted: 'Not started',
+            mastered: 'Completed',
+            level: 'Level',
+            fileLabel: 'File to complete',
+            taskLabel: 'Task {n}',
+            blankLabel: 'Blank {n}',
+            hintLabel: 'Hint for blank {n}',
+            scenario: 'Situation',
+            goal: 'What you must complete',
+            given: 'The code you start from',
+            complete: 'Complete this code',
+            reference: 'Compare with the finished file',
+            referenceNote: 'Open this only after you have tried — the point is to write the code yourself first.',
+            check: 'Check my code',
+            reveal: 'Show answers',
+            retry: 'Reset',
+            resultOk: 'All correct!',
+            resultBad: 'blanks correct — read the explanations and fix the rest.',
+            yourAnswer: 'Your answer',
+            correctAnswer: 'Correct answer',
+            emptyAnswer: '(empty)',
+            correct: 'correct',
+            incorrect: 'incorrect',
+            explanations: 'Explanation, blank by blank',
+            hints: 'Hints',
+            keynote: 'Key point: ',
+            backToList: '← Back to tasks',
+            prev: '← Previous',
+            next: 'Next →',
+            blanks: 'blanks',
+            listNote: 'Only “Check my code” counts towards progress, and a worse attempt never overwrites a better one.'
         },
 
         manual: {
@@ -167,9 +216,10 @@ window.I18N = {
         footer: 'CSIS 3280 · 后端 Web 开发 · 第 4 周 PHP 表单处理',
         nav: {
             home: '概览',
+            lab: '补全代码',
             guide: '示例演示',
             manual: '原文说明书',
-            exercises: '填空练习',
+            exercises: '练习题库',
             cheatsheet: '函数速查'
         },
 
@@ -177,9 +227,18 @@ window.I18N = {
             heroTitle: '第 4 周 — PHP 如何读取表单',
             heroSub: '六个最小可运行示例、全部源文件的逐步讲解，以及编程填空练习室。阅读本教材不需要服务器，全部在浏览器里完成。',
             pills: ['6 个示例', '13 个源文件', '14 道填空题', '中 / 英双语'],
+            ctaTitle: '从补全代码开始',
+            ctaText: '学生自己把缺的代码填出来学得最快。实验室给出 starter 原文件、逐空校对，最后再让你对照完成版。',
+            ctaBtn: '进入补全代码实验室 →',
             sectionsTitle: '从哪里开始？',
             sectionsSub: '任选一个板块进入；练习进度保存在本机浏览器里。',
             tiles: [
+                {
+                    kicker: '从这里开始',
+                    title: '补全代码实验室',
+                    desc: 'week04_starter 里没写完的七个地方，逐个补全并校对。',
+                    foot: '7 道任务 · 18 个空'
+                },
                 {
                     kicker: '板块一',
                     title: '示例演示',
@@ -232,6 +291,45 @@ window.I18N = {
             tableOp: '操作',
             tableResult: '显示效果',
             notice: '注意：'
+        },
+
+        lab: {
+            title: '补全代码实验室',
+            sub: '七道任务全部来自 week04_starter：补全缺失的代码 → 校对 → 再对照 week04_demo(done) 里的完成版。',
+            progressTitle: '总进度',
+            practiced: '已练习',
+            correctOf: '答对',
+            notStarted: '未开始',
+            mastered: '已完成',
+            level: '难度',
+            fileLabel: '要补全的文件',
+            taskLabel: '任务 {n}',
+            blankLabel: '第 {n} 空',
+            hintLabel: '第 {n} 空的提示',
+            scenario: '背景',
+            goal: '要补全什么',
+            given: '你拿到的代码',
+            complete: '请补全这段代码',
+            reference: '对照完成版',
+            referenceNote: '先自己写一遍再看 —— 重点是先动手，再对照。',
+            check: '校对答案',
+            reveal: '显示答案',
+            retry: '重新填写',
+            resultOk: '全部正确！',
+            resultBad: '个空正确 —— 看完讲解再改一改。',
+            yourAnswer: '你的答案',
+            correctAnswer: '正确答案',
+            emptyAnswer: '（空）',
+            correct: '正确',
+            incorrect: '不正确',
+            explanations: '逐空讲解',
+            hints: '提示',
+            keynote: '要点：',
+            backToList: '← 返回任务列表',
+            prev: '← 上一题',
+            next: '下一题 →',
+            blanks: '个空',
+            listNote: '只有点「校对答案」才记录进度，且只在成绩更好时覆盖。'
         },
 
         manual: {

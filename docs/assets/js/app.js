@@ -116,7 +116,7 @@
 
     function renderHome() {
         var s = I18N[LANG].home;
-        var links = ['#/guide', '#/manual', '#/exercises', '#/cheatsheet'];
+        var links = ['#/lab', '#/guide', '#/manual', '#/exercises', '#/cheatsheet'];
 
         var html = ''
             + '<div class="hero">'
@@ -128,7 +128,13 @@
         });
         html += '</div></div>';
 
-        html += '<h2 class="section-title">' + esc(s.sectionsTitle) + '</h2>'
+        html += '<div class="card" style="border-color:#c9c2f5;background:linear-gradient(135deg,#f6f3ff,#ffffff)">'
+              +   '<h2 class="section-title" style="margin-bottom:6px">' + esc(s.ctaTitle) + '</h2>'
+              +   '<p class="section-sub" style="margin-bottom:14px">' + esc(s.ctaText) + '</p>'
+              +   '<a class="btn btn-primary" href="#/lab">' + esc(s.ctaBtn) + '</a>'
+              + '</div>';
+
+        html += '<h2 class="section-title" style="margin-top:24px">' + esc(s.sectionsTitle) + '</h2>'
               + '<p class="section-sub">' + esc(s.sectionsSub) + '</p>'
               + '<div class="grid">';
         s.tiles.forEach(function (tile, i) {
@@ -526,19 +532,23 @@
 
     var exState = { id: null, values: {}, results: null, checked: false, reveal: false };
 
-    function renderExerciseBlock(ex) {
-        var parts = ex.code.split(/\[\[(\d+)\]\]/);
+    function renderBlankCode(code, blanks, opts) {
+        opts = opts || {};
+        var values = opts.values || {};
+        var results = opts.results || null;
+        var reveal = !!opts.reveal;
+        var parts = code.split(/\[\[(\d+)\]\]/);
         var html = '<pre class="code-block">';
         for (var i = 0; i < parts.length; i++) {
             if (i % 2 === 0) {
                 html += highlightCode(parts[i]);
             } else {
                 var idx = parts[i];
-                var blank = ex.blanks[idx] || { answer: '' };
-                var res = exState.results ? exState.results[idx] : null;
-                var value = exState.reveal ? blank.answer : (exState.values[idx] || '');
+                var blank = blanks[idx] || { answer: '' };
+                var res = results ? results[idx] : null;
+                var value = reveal ? blank.answer : (values[idx] || '');
                 var state = '';
-                if (res && !exState.reveal) { state = res.correct ? ' is-correct' : ' is-wrong'; }
+                if (res && !reveal) { state = res.correct ? ' is-correct' : ' is-wrong'; }
                 var width = Math.max(8, String(blank.answer).length + 2);
                 html += '<input type="text" class="code-input' + state + '"'
                       + ' data-blank="' + esc(idx) + '"'
@@ -584,7 +594,11 @@
               +   '</div>'
               +   '<p style="margin:12px 0 4px">' + esc(t(ex.prompt)) + '</p>'
               +   '<p class="small muted">' + esc(s.source) + ': <code>' + esc(ex.source) + '</code></p>'
-              +   '<div style="margin-top:12px">' + renderExerciseBlock(ex) + '</div>'
+              +   '<div style="margin-top:12px">'
+              +     renderBlankCode(ex.code, ex.blanks, {
+                        values: exState.values, results: exState.results, reveal: exState.reveal
+                    })
+              +   '</div>'
               +   '<div class="toolbar" style="margin-top:14px">'
               +     '<button type="button" class="btn btn-ok" id="btnCheck">' + esc(s.check) + '</button>'
               +     '<button type="button" class="btn" id="btnReveal">' + esc(s.reveal) + '</button>'
@@ -693,6 +707,250 @@
     }
 
     /* ============================================================
+       Code completion lab
+       ============================================================ */
+
+    function loadLabProgress() {
+        try { return JSON.parse(localStorage.getItem('w04_lab_progress') || '{}'); }
+        catch (e) { return {}; }
+    }
+    function saveLabProgress(p) {
+        try { localStorage.setItem('w04_lab_progress', JSON.stringify(p)); } catch (e) {}
+    }
+
+    function labTotalBlanks() {
+        return LAB.reduce(function (sum, task) { return sum + Object.keys(task.blanks).length; }, 0);
+    }
+
+    function referenceCode(task) {
+        if (task.refCode) { return task.refCode; }
+        if (task.ref) {
+            for (var i = 0; i < MANUAL.length; i++) {
+                if (MANUAL[i].file === task.ref) {
+                    return MANUAL[i].steps.map(function (s) { return s.code; }).join('');
+                }
+            }
+        }
+        return '';
+    }
+
+    function renderLabList() {
+        var s = I18N[LANG].lab;
+        var progress = loadLabProgress();
+        var total = labTotalBlanks();
+        var correctBlanks = 0;
+        var doneCount = 0;
+
+        var cards = '<div class="grid">';
+        LAB.forEach(function (task) {
+            var n = Object.keys(task.blanks).length;
+            var rec = progress[task.id];
+            var status;
+            if (rec) {
+                correctBlanks += rec.correct;
+                doneCount++;
+                if (rec.correct === n) { status = '<span class="badge badge-ok">' + esc(s.mastered) + '</span>'; }
+                else { status = '<span class="badge badge-warn">' + rec.correct + ' / ' + n + '</span>'; }
+            } else {
+                status = '<span class="badge">' + esc(s.notStarted) + '</span>';
+            }
+
+            cards += '<a class="tile" href="#/lab/' + task.id + '">'
+                   +   '<div class="tile-kicker">' + esc(fmt(s.taskLabel, task.id)) + '</div>'
+                   +   '<h3>' + esc(t(task.title)) + '</h3>'
+                   +   '<p class="small muted"><code>' + esc(task.file) + '</code></p>'
+                   +   '<div class="tile-foot">' + levelBadge(task.level) + ' ' + status
+                   +     ' · ' + n + ' ' + esc(s.blanks) + '</div>'
+                   + '</a>';
+        });
+        cards += '</div>';
+
+        var percent = total ? Math.round(correctBlanks * 100 / total) : 0;
+
+        return '<h2 class="section-title">' + esc(s.title) + '</h2>'
+             + '<p class="section-sub">' + esc(s.sub) + '</p>'
+             + '<div class="card">'
+             +   '<div class="toolbar" style="justify-content:space-between">'
+             +     '<strong>' + esc(s.progressTitle) + '</strong>'
+             +     '<span class="small muted">' + esc(s.practiced) + ' ' + doneCount + ' / ' + LAB.length
+             +       ' · ' + esc(s.correctOf) + ' ' + correctBlanks + ' / ' + total + '</span>'
+             +   '</div>'
+             +   '<div class="progress progress-lg" style="margin-top:10px"><span style="width:' + percent + '%">' + percent + '%</span></div>'
+             +   '<p class="small muted" style="margin:10px 0 0">' + esc(s.listNote) + '</p>'
+             + '</div>'
+             + cards;
+    }
+
+    var labState = { id: null, values: {}, results: null, checked: false, reveal: false };
+
+    function renderLabTask(id) {
+        var s = I18N[LANG].lab;
+        var task = null;
+        LAB.forEach(function (x) { if (x.id === id) { task = x; } });
+        if (!task) { return renderNotFound(); }
+
+        if (labState.id !== id) {
+            labState = { id: id, values: {}, results: null, checked: false, reveal: false };
+        }
+
+        var n = Object.keys(task.blanks).length;
+        var correctCount = 0;
+        if (labState.results) {
+            Object.keys(labState.results).forEach(function (k) {
+                if (labState.results[k].correct) { correctCount++; }
+            });
+        }
+        var allCorrect = labState.checked && correctCount === n;
+
+        var html = '<div class="pager"><a class="btn btn-sm" href="#/lab">' + esc(s.backToList) + '</a><div>';
+        if (id > 1) { html += '<a class="btn btn-sm" href="#/lab/' + (id - 1) + '">' + esc(s.prev) + '</a> '; }
+        if (id < LAB.length) { html += '<a class="btn btn-sm btn-primary" href="#/lab/' + (id + 1) + '">' + esc(s.next) + '</a>'; }
+        html += '</div></div>';
+
+        html += '<div class="card">'
+              +   '<div class="toolbar" style="justify-content:space-between;align-items:flex-start">'
+              +     '<h2 style="font-size:19px;margin:0">'
+              +       esc(fmt(s.taskLabel, id)) + colon() + esc(t(task.title)) + '</h2>'
+              +     levelBadge(task.level)
+              +   '</div>'
+              +   '<p class="small muted" style="margin:8px 0 0">' + esc(s.fileLabel)
+              +     ': <code>' + esc(task.file) + '</code></p>'
+              +   '<dl class="kv" style="margin:12px 0 0">'
+              +     '<dt>' + esc(s.scenario) + '</dt><dd>' + esc(t(task.scenario)) + '</dd>'
+              +     '<dt>' + esc(s.goal) + '</dt><dd>' + esc(t(task.goal)) + '</dd>'
+              +   '</dl>'
+              + '</div>';
+
+        if (task.given) {
+            html += '<div class="card">'
+                  +   '<div class="code-caption">' + esc(s.given) + '</div>'
+                  +   codeBlock(task.given)
+                  + '</div>';
+        }
+
+        html += '<div class="card">'
+              +   '<div class="code-caption">' + esc(s.complete) + '</div>'
+              +   renderBlankCode(task.code, task.blanks, {
+                    values: labState.values, results: labState.results, reveal: labState.reveal
+                  })
+              +   '<div class="toolbar" style="margin-top:14px">'
+              +     '<button type="button" class="btn btn-ok" id="labCheck">' + esc(s.check) + '</button>'
+              +     '<button type="button" class="btn" id="labReveal">' + esc(s.reveal) + '</button>'
+              +     '<button type="button" class="btn" id="labRetry">' + esc(s.retry) + '</button>'
+              +   '</div>'
+              + '</div>';
+
+        if (labState.checked) {
+            html += '<div class="alert ' + (allCorrect ? 'alert-ok' : 'alert-bad') + '"><strong>'
+                  + (allCorrect ? esc(s.resultOk) + ' ' + correctCount + ' / ' + n
+                                : correctCount + ' ' + esc(s.resultBad))
+                  + '</strong></div>';
+
+            html += '<div class="card"><h3 class="h6" style="margin-top:0">' + esc(s.explanations) + '</h3>';
+            Object.keys(task.blanks).forEach(function (idx) {
+                var blank = task.blanks[idx];
+                var res = labState.results[idx];
+                html += '<div class="blank-result ' + (res.correct ? 'ok' : 'bad') + '">'
+                      +   '<div class="br-title">' + esc(fmt(s.blankLabel, idx)) + colon()
+                      +     '<span class="' + (res.correct ? 'badge badge-ok' : 'badge badge-warn') + '">'
+                      +       esc(res.correct ? s.correct : s.incorrect) + '</span></div>'
+                      +   '<div class="br-body">'
+                      +     '<div>' + esc(s.yourAnswer) + ': <code>' + esc(res.user === '' ? s.emptyAnswer : res.user) + '</code></div>';
+                if (!res.correct) {
+                    html += '<div>' + esc(s.correctAnswer) + ': <code>' + esc(blank.answer) + '</code></div>';
+                }
+                html += '<div class="muted" style="margin-top:4px">' + esc(t(blank.explain)) + '</div>'
+                      +   '</div></div>';
+            });
+            html += '</div>';
+        } else if (labState.reveal) {
+            html += '<div class="alert alert-warn">' + esc(s.revealNote) + '</div>';
+        }
+
+        html += '<div class="card"><h3 class="h6" style="margin-top:0">' + esc(s.hints) + '</h3>';
+        Object.keys(task.blanks).forEach(function (idx) {
+            html += '<details class="hint"><summary>' + esc(fmt(s.hintLabel, idx)) + '</summary>'
+                  +   '<div class="hint-body">' + esc(t(task.blanks[idx].hint)) + '</div></details>';
+        });
+        html += '</div>';
+
+        var ref = referenceCode(task);
+        if (ref) {
+            html += '<div class="card"><details>'
+                  +   '<summary style="cursor:pointer;font-weight:700">' + esc(s.reference)
+                  +     ' — <code>' + esc(task.ref || task.file) + '</code></summary>'
+                  +   '<p class="small muted" style="margin:10px 0">' + esc(s.referenceNote) + '</p>'
+                  +   codeBlock(ref)
+                  + '</details></div>';
+        }
+
+        html += '<div class="alert alert-info"><strong>' + esc(s.keynote) + '</strong>' + esc(t(task.note)) + '</div>';
+
+        return html;
+    }
+
+    function bindLabTask(id) {
+        var task = null;
+        LAB.forEach(function (x) { if (x.id === id) { task = x; } });
+        if (!task) { return; }
+
+        function collect() {
+            var inputs = view.querySelectorAll('.code-input');
+            var values = {};
+            for (var i = 0; i < inputs.length; i++) {
+                values[inputs[i].getAttribute('data-blank')] = inputs[i].value;
+            }
+            return values;
+        }
+
+        var check = document.getElementById('labCheck');
+        if (check) {
+            check.addEventListener('click', function () {
+                var values = collect();
+                var results = {};
+                var correct = 0;
+                Object.keys(task.blanks).forEach(function (idx) {
+                    var user = (values[idx] || '').trim();
+                    var ok = isBlankCorrect(user, task.blanks[idx]);
+                    results[idx] = { user: user, correct: ok, expected: task.blanks[idx].answer };
+                    if (ok) { correct++; }
+                });
+                labState.values = values;
+                labState.results = results;
+                labState.checked = true;
+                labState.reveal = false;
+
+                var progress = loadLabProgress();
+                var n = Object.keys(task.blanks).length;
+                var previous = progress[task.id] ? progress[task.id].correct : -1;
+                if (correct > previous) { progress[task.id] = { correct: correct, total: n }; }
+                saveLabProgress(progress);
+
+                render();
+            });
+        }
+
+        var reveal = document.getElementById('labReveal');
+        if (reveal) {
+            reveal.addEventListener('click', function () {
+                labState.values = collect();
+                labState.reveal = true;
+                labState.checked = false;
+                labState.results = null;
+                render();
+            });
+        }
+
+        var retry = document.getElementById('labRetry');
+        if (retry) {
+            retry.addEventListener('click', function () {
+                labState = { id: id, values: {}, results: null, checked: false, reveal: false };
+                render();
+            });
+        }
+    }
+
+    /* ============================================================
        Cheatsheet + 404
        ============================================================ */
 
@@ -737,7 +995,18 @@
 
         var html, title, navRoute = route;
 
-        if (route === 'guide') {
+        if (route === 'lab') {
+            if (arg) {
+                html = renderLabTask(parseInt(arg, 10));
+                var tk = null;
+                LAB.forEach(function (x) { if (x.id === parseInt(arg, 10)) { tk = x; } });
+                title = (tk ? tk.file : I18N[LANG].lab.title);
+            } else {
+                html = renderLabList();
+            }
+            title = title || I18N[LANG].lab.title;
+            navRoute = 'lab';
+        } else if (route === 'guide') {
             html = renderGuide(); title = I18N[LANG].guide.title;
         } else if (route === 'manual') {
             if (arg) {
@@ -768,6 +1037,7 @@
 
         if (route === 'manual' && arg) { bindChapter(arg); }
         if (route === 'exercise' && arg) { bindExercise(parseInt(arg, 10)); }
+        if (route === 'lab' && arg) { bindLabTask(parseInt(arg, 10)); }
 
         current = { route: route, arg: arg };
         window.scrollTo(0, 0);

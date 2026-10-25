@@ -16,11 +16,17 @@ docs/
     ├── css/style.css
     └── js/
         ├── i18n.js             interface strings (EN / ZH)
+        ├── data-lab.js         CODE COMPLETION LAB — 7 tasks / 17 blanks
         ├── data-guide.js       demo guide, file inventory, cheatsheet
         ├── data-manual.js      source-code manual — 13 files / 67 steps
-        ├── data-exercises.js   fill-in-the-blank lab — 14 exercises / 19 blanks
+        ├── data-exercises.js   drill bank — 14 exercises / 19 blanks
         └── app.js              router, rendering, answer checking, progress
 ```
+
+**For students: start at the Code Completion Lab (`#/lab`).** Each task gives you the
+`week04_starter` file, the lines that are missing or broken, a hint per blank,
+instant checking, and — once you have tried — the finished file from
+`week04_demo(done)` to compare against.
 
 ### Run locally
 
@@ -42,10 +48,11 @@ The site is then served at `https://johnnylin707.github.io/CSIS3280-week04/`.
 
 | Section | Route | Content |
 |---|---|---|
+| Code Completion Lab | `#/lab` | **7 tasks**: complete the code `week04_starter` leaves unfinished |
 | Overview | `#/` | environment setup + the 13-file inventory |
 | Demo Guide | `#/guide` | what each of the 6 demos does, how to run it, what to learn |
 | Manual | `#/manual` | every source file split into steps: original code + why + purpose |
-| Exercises | `#/exercises` | 14 fill-in-the-blank exercises with instant checking |
+| Drills | `#/exercises` | 14 extra fill-in-the-blank exercises (incl. Assignment 2 topics) |
 | Cheatsheet | `#/cheatsheet` | every PHP function used this week |
 
 Language is switched with the EN / 中文 button (add `?lang=en` or `?lang=zh` to
